@@ -506,3 +506,203 @@ num_sum = num_int + num_str
 print("num_int 与 num_str 相加结果为:",num_sum)
 print("sum 数据类型为:",type(num_sum))
 ```
+
+# 运算符
++ 算术运算符
++ 比较（关系）运算符
++ 赋值运算符
++ 逻辑运算符
++ 位运算符
++ 成员运算符
++ 身份运算符
++ 运算符优先级
+
+    - `:-`**海象运算符**，这个运算符的主要目的是在表达式中同时进行赋值和返回赋值的值。Python3.8 版本新增运算符。
+    ``` python 
+    # 在这个示例中，赋值表达式可以避免调用 len() 两次:
+    if (n := len(a)) > 10:
+        print(f"List is too long ({n} elements, expected <= 10)")
+
+    # 传统写法
+    n = 10
+    if n > 5:
+        print(n)
+
+    # 使用海象运算符
+    if (n := 10) > 5:
+        print(n)
+    ```
+
+## Python身份运算符
+身份运算符用于比较两个对象的存储单元
++ `is` 是判断两个标识符是不是引用自一个对象，类似 `id(x) == id(y)`
++ `is not` 是判断两个标识符是不是引用自不同对象，类似 `id(x) != id(y)`
+
+## Python运算符优先级
+|运算符|描述|
+|:---:|:---:|
+|(expressions...), [expressions...], {key: value...}, {expressions...}|圆括号的表达式|
+|x[index], x[index:index], x(arguments...), x.attribute|读取，切片，调用，属性引用|
+|await x|await 表达式|
+|**|乘方(指数)|
+|+x, -x, ~x|正，负，按位非 NOT|
+|*, @, /, //, %|乘，矩阵乘，除，整除，取余|
+|+, -|加和减|
+|<<, >>|移位|
+|&|按位与 AND|
+|^|按位异或 XOR|
+|\||按位或 OR|
+|in,not in, is,is not, <, <=, >, >=, !=, ==|比较运算，包括成员检测和标识号检测|
+|not x|逻辑非 NOT|
+|and|逻辑与 AND|
+|or|逻辑或 OR|
+|if -- else|条件表达式|
+|lambda|lambda 表达式|
+|:=|赋值表达式|
+
+
+
+# 条件控制
++ if语句
+``` python
+if condition_1:
+    statement_block_1
+elif condition_2:
+    statement_block_2
+else:
+    statement_block_3
+```
++ 每个条件后面要使用冒号 `:` 
++ 多重 if 语句逐级缩进
++ Python 中没有 `switch...case` 语句，但在 Python3.10 版本添加了 `match...case`
+``` python
+def http_error(status):
+    match status:
+        case 400:
+            return "Bad request"
+        case 404:
+            return "Not found"
+        case 418:
+            return "I'm a teapot"
+        case _:
+            return "Something's wrong with the internet"
+
+mystatus=400
+print(http_error(400))
+```
+
+# 循环语句  
+
+## `while` 循环
++ 一般形式
+``` python
+while 判断条件(condition)：
+    执行语句(statements)……
+循环外语句()……
+```
++ 无限循环  
+执行语句(statements)永远不会触及判断条件(condition)
+
++ while 循环使用 else 语句
+``` python
+while <expr>:
+    <statement(s)>
+else:
+    <additional_statement(s)>
+```
+
+## for 语句
++ 一般格式  
+for 循环可以遍历任何可迭代对象，如一个列表或者一个字符串
+``` python
+for <variable> in <sequence>:
+    <statements>
+else:
+    <statements>
+```
+
+``` python
+sites = ["Baidu", "Google","Bing","Taobao"]
+for site in sites:
+    print(site)
+
+word = 'runoob'
+for letter in word:
+    print(letter)
+
+#  1 到 5 的所有数字：
+for number in range(1, 6):
+    print(number)
+```
+
++ for...else
+``` python
+for item in iterable:
+    # 循环主体
+else:
+    # 循环结束后执行的代码
+```
+
++ break 语句  
+`break` 语句用于跳出当前循环体，不会执行 `else` 子句  
+``` python
+sites = ["Baidu", "Google","Bing","Taobao"]
+for site in sites:
+    if site == "Bing":
+        print("必应")
+        break
+    print("循环数据 " + site)
+else:
+    print("没有循环数据!")
+print("完成循环!")
+```
+
++ continue 语句  
+`continue` 语句被用来告诉 Python 跳过当前循环块中的剩余语句，然后继续进行下一轮循环 
+``` python
+n = 5
+while n > 0:
+    n -= 1
+    if n == 2:
+        continue
+    print(n)
+print('循环结束。')
+```
+
++ pass 语句  
+pass 不做任何事情，一般用做占位语句，保持程序结构的完整性  
+``` python
+for letter in 'Runoob': 
+   if letter == 'o':
+      pass
+      print ('执行 pass 块')
+   print ('当前字母 :', letter)
+ 
+print ("Good bye!")
+```
+
++ range() 函数  
+遍历数字序列，range() 函数会生成数列
+``` python
+# 一般用法
+for i in range(5):
+    print(i)
+
+# 指定区间
+for i in range(5,9):
+    print(i)
+
+# 指定步长((甚至可以是负数)
+for i in range(0, 10, 3):       # 步长为3
+    print(i)
+for i in range(-10, -100, -30): # 步长为-30
+    print(i)
+
+# 结合 range() 和 len() 函数，遍历序列的索引
+a = ['Google', 'Baidu', 'Bing', 'Taobao', 'QQ']
+for i in range(len(a)):
+    print(i, a[i])
+
+# 使用 range() 函数来创建一个列表
+list(range(5))
+```

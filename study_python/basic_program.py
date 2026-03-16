@@ -318,6 +318,7 @@ if x[0] == ord("h"):
 
 # This is a example of type conversion.
 # 类型转换
+'''
 num_int = 123
 num_str = "456"
 
@@ -331,3 +332,122 @@ num_sum = num_int + num_str
 
 print("num_int 与 num_str 相加结果为:",num_sum)
 print("sum 数据类型为:",type(num_sum))
+'''
+
+
+# This is a example of assignment expression using the walrus operator.
+# 海象运算符赋值表达式
+'''
+# 在这个示例中，赋值表达式可以避免调用 len() 两次:
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+if (n := len(a)) > 10:
+    print(f"List is too long ({n} elements, expected <= 10)")
+# 传统写法
+n = 10
+if n > 5:
+    print(n)
+# 使用海象运算符
+if (n := 10) > 5:
+    print(n)
+'''
+
+
+# This is a example of structural pattern matching using match-case.
+# 结构化模式匹配 match-case
+'''
+def http_error(status):
+    match status:
+        case 400:
+            return "Bad request"
+        case 404:
+            return "Not found"
+        case 418:
+            return "I'm a teapot"
+        case _:
+            return "Something's wrong with the internet"
+
+mystatus=400
+print(http_error(400))
+'''
+
+# This is a example of for loops.
+# for 循环示例
+'''
+sites = ["Baidu", "Google","Bing","Taobao"]
+for site in sites:
+    print(site)
+
+word = 'Bing'
+for letter in word:
+    print(letter)
+
+#  1 到 5 的所有数字：
+for number in range(1, 6):
+    print(number)
+'''
+
+
+# This is a example of for loop with break and else.
+# 带有 break 和 else 的 for 循环示例
+'''
+sites = ["Baidu", "Google","Bing","Taobao"]
+for site in sites:
+    if site == "Bing":
+        print("必应")
+        break
+    print("循环数据 " + site)
+else:
+    print("没有循环数据!")
+print("完成循环!")
+'''
+
+
+# This is a example of while loop with continue.
+# 带有 continue 的 while 循环示例
+'''
+n = 5
+while n > 0:
+    n -= 1
+    if n == 2:
+        continue
+    print(n)
+print('循环结束。')
+'''
+
+
+# This is a example of pass statement in loops.
+# 循环中的 pass 语句示例
+'''
+for letter in 'Runoob': 
+   if letter == 'o':
+      pass
+      print ('执行 pass 块')
+   print ('当前字母 :', letter)
+ 
+print ("Good bye!")
+'''
+
+
+# This is a example of range() function usage.
+# range() 函数用法示例
+# 一般用法
+for i in range(5):
+    print(i)
+
+# 指定区间
+for i in range(5,9):
+    print(i)
+
+# 指定步长((甚至可以是负数)
+for i in range(0, 10, 3):       # 步长为3
+    print(i)
+for i in range(-10, -100, -30): # 步长为-30
+    print(i)
+
+# 结合 range() 和 len() 函数，遍历序列的索引
+a = ['Google', 'Baidu', 'Bing', 'Taobao', 'QQ']
+for i in range(len(a)):
+    print(i, a[i])
+
+# 使用 range() 函数来创建一个列表
+list(range(5))
