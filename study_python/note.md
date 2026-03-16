@@ -134,3 +134,77 @@ a, b, c = 1, 2000.0, "John"
 + Tuple（元组）
 + Dictionary（字典）
 
+
+## 查看变量类型
+``` python
+# 定义变量
+x = 9               # 整形
+y = 3.1415926       # 浮点型
+name  = "Alice"     # 字符串
+is_active = Ture    # 布尔型
+
+# 查看数据类型
+print(type(x))
+print(type(y))
+print(type(name))
+print(type(is_active))
+```
+
+## Numbers（数字）
++ int
++ float
++ bool
++ complex(复数)
+
+使用`type()`或`isinstance()`判断数字类型
+
+``` python
+a, b, c, d = 20, 5.5, True, 4+3j
+
+# 查看数据类型
+print(type(a))
+print(type(b))
+print(type(c))
+print(type(d))
+
+print(isinstance(a, int))   
+```
+
+## del语句删除一些对象引用
+``` python
+del var
+del var_a, var_b
+```
+
+> note:  
+> type()不会认为子类是一种父类类型。  
+> isinstance()会认为子类是一种父类类型。  
+
+## bool
++ Python3 中，bool 是 int 的子类，True 和 False 可以和数字相加  
+
+## 数值运算
+```
+>>> 5 + 4  # 加法
+9
+>>> 4.3 - 2 # 减法
+2.3
+>>> 3 * 7  # 乘法
+21
+>>> 2 / 4  # 除法，得到一个浮点数
+0.5
+>>> 2 // 4 # 除法，得到一个整数
+0
+>>> 17 % 3 # 取余 
+2
+>>> 2 ** 5 # 乘方
+32
+```
++ 在混合计算时，Python会把整型转换成为浮点数
++ 一个变量可以通过赋值指向不同类型的对象
+
+## complex(复数)
+复数由实数部分和虚数部分构成，可以用 a + bj，或者 complex(a,b) 表示， 复数的实部 a 和虚部 b 都是浮点型。
+
+
+## 字符串

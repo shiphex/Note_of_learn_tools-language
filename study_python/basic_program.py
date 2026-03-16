@@ -119,4 +119,25 @@ print (a, b, c)
 '''
 
 
+# This is a example of data types and type checking.
+# 数据类型及类型检查
+# 定义变量
+x = 9               # 整形
+y = 3.1415926       # 浮点型
+name  = "Alice"     # 字符串
+is_active = True    # 布尔型
+# 查看数据类型
+print(type(x))
+print(type(y))
+print(type(name))
+print(type(is_active))
+
+# 定义变量
+a, b, c, d = 20, 5.5, True, 4+3j
+# 查看数据类型
+print(type(a))
+print(type(b))
+print(type(c))
+print(type(d))
+print(isinstance(a, int))
 
