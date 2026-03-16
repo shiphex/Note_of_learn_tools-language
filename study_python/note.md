@@ -464,3 +464,45 @@ x = b"hello"
 if x[0] == ord("h"):
     print("The first element is 'h'")
 ```
+
+
+
+# Python数据类型转换
+|函数   |	描述|
+|:---:|:---:|
+|int(x [,base])|将x转换为一个整数|
+|float(x)|将x转换到一个浮点数|
+|complex(real [,imag])|创建一个复数|
+|str(x)|将对象 x 转换为字符串|
+|repr(x)|将对象 x 转换为表达式字符串|
+|eval(str)|用来计算在字符串中的有效Python表达式,并返回一个对象|
+|tuple(s)|将序列 s 转换为一个元组|
+|list(s)|将序列 s 转换为一个列表|
+|set(s)|转换为可变集合|
+|dict(d)|创建一个字典。d 必须是一个 (key, value)元组序列。|
+|frozenset(s)|转换为不可变集合|
+|chr(x)|将一个整数转换为一个字符|
+|ord(x)|将一个字符转换为它的整数值|
+|hex(x)|将一个整数转换为一个十六进制字符串|
+|oct(x)|将一个整数转换为一个八进制字符串|
+
+## 隐式类型转换
+自动完成，如整型、浮点型、复数型
+
+## 显式类型转换
+手动强制转换格式
+``` python
+num_int = 123
+num_str = "456"
+
+print("num_int 数据类型为:",type(num_int))
+print("类型转换前，num_str 数据类型为:",type(num_str))
+
+num_str = int(num_str)    # 强制转换为整型
+print("类型转换后，num_str 数据类型为:",type(num_str))
+
+num_sum = num_int + num_str
+
+print("num_int 与 num_str 相加结果为:",num_sum)
+print("sum 数据类型为:",type(num_sum))
+```
