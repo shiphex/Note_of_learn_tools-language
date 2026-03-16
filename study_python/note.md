@@ -446,3 +446,21 @@ print (tinydict.values()) # 输出所有值
 ```
 
 
+## bytes类型
++ `bytes` 类型表示的是不可变的二进制序列
++ `bytes` 类型中的元素是整数值（0 到 255 之间的整数）
++ 可用`b`前缀创建 `bytes` 对象
++ 使用 `bytes()` 函数将其他类型的对象转换为 `bytes` 类型
++ `bytes()` 函数的第一个参数是要转换的对象，第二个参数是编码方式,，省略第二个参数，则默认使用 `UTF-8` 编码
+
+``` python
+x = bytes("hello", encoding="utf-8")
+x = b"hello"
+y = x[1:3]  # 切片操作，得到 b"el"
+z = x + b"world"  # 拼接操作，得到 b"helloworld"
+print(z)
+
+x = b"hello"
+if x[0] == ord("h"):
+    print("The first element is 'h'")
+```

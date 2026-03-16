@@ -284,6 +284,7 @@ print(a ^ b)     # a 和 b 中不同时存在的元素
 
 # This is a example of dictionary operations.
 # 字典操作
+'''
 dict = {}
 dict['one'] = "1"
 dict[2]     = "two"
@@ -297,5 +298,17 @@ print (dict[2])           # 输出键为 2 的值
 print (tinydict)          # 输出完整的字典
 print (tinydict.keys())   # 输出所有键
 print (tinydict.values()) # 输出所有值
+'''
 
 
+# This is a example of bytes type and operations.
+# bytes类型和操作
+x = bytes("hello", encoding="utf-8")
+x = b"hello"
+y = x[1:3]          # 切片操作，得到 b"el"
+z = x + b"world"    # 拼接操作，得到 b"helloworld"
+print(z)
+
+x = b"hello"
+if x[0] == ord("h"):
+    print("The first element is 'h'")
