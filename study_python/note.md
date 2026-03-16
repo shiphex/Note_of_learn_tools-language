@@ -420,3 +420,29 @@ print(a | b)     # a 和 b 的并集
 print(a & b)     # a 和 b 的交集
 print(a ^ b)     # a 和 b 中不同时存在的元素
 ```
+
+
+
+## Dictionary（字典）
++ 字典是无序的对象集合
++ 无序的 `键(key) : 值(value) `的集合(`tinydict.keys()`:`tinydict.values()`)
++ 键(key)必须使用不可变类型
++ 键(key)必须是唯一的
+
+``` python
+dict = {}
+dict['one'] = "1"
+dict[2]     = "two"
+
+tinydict = {'name': 'bing','code':1, 'site': 'www.bing.com'}
+
+tinydict['name'] = 'wab'
+
+print (dict['one'])       # 输出键为 'one' 的值
+print (dict[2])           # 输出键为 2 的值
+print (tinydict)          # 输出完整的字典
+print (tinydict.keys())   # 输出所有键
+print (tinydict.values()) # 输出所有值
+```
+
+

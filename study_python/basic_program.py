@@ -282,4 +282,20 @@ print(a & b)     # a 和 b 的交集
 print(a ^ b)     # a 和 b 中不同时存在的元素
 '''
 
+# This is a example of dictionary operations.
+# 字典操作
+dict = {}
+dict['one'] = "1"
+dict[2]     = "two"
+
+tinydict = {'name': 'baidu','code':1, 'site': 'www.bing.com'}
+
+tinydict['name'] = 'bing'
+
+print (dict['one'])       # 输出键为 'one' 的值
+print (dict[2])           # 输出键为 2 的值
+print (tinydict)          # 输出完整的字典
+print (tinydict.keys())   # 输出所有键
+print (tinydict.values()) # 输出所有值
+
 
