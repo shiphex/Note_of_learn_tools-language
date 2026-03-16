@@ -145,6 +145,7 @@ print(isinstance(a, int))
 
 # This is a example of string operations.
 # 字符串操作
+'''
 str = "Python"
 print(str)          # 打印整个字符串
 print(str[0:-1])    # 打印字符串从第一个到倒数第二个字符（不包含倒数第一个字符，即索引为-1的字符）
@@ -153,5 +154,20 @@ print(str[2:5])     # 打印第三个到第五个字符（不包含索引为5的
 print(str[2:])      # 打印从第三个字符开始到末尾
 print(str * 2)      # 打印字符串两遍
 print(str + "test") # 打印字符串和test拼接在一起
+'''
+
+# This is a example of special characters in strings.
+# 特殊字符
+'''
+print('Py\nthon')
+print(r'Py\nthon')
+'''
+
+
+# Tihs is a example of word and character access in strings.
+# 字符串中的单词和字符访问
+word = 'Python'
+print(word[0] + word[5])
+print(word[-1], word[-6])
 
 

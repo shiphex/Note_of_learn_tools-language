@@ -240,3 +240,15 @@ print(str + "test") # 打印字符串和test拼接在一起
 ### 特殊字符
 + 反斜杠 \ 转义特殊字符
 + 在字符串前面添加一个 r，表示原始字符串
+``` python
+print('Py\nthon')
+print(r'Py\nthon')
+```
+
+### 字符
++ Python 没有单独的字符类型，一个字符就是长度为1的字符串
+``` python
+word = 'Python'
+print(word[0] + word[5])
+print(word[-1], word[-6])
+```
