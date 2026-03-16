@@ -217,3 +217,27 @@ if x:
 '''
 
 
+# This is a example of list operations.
+# 列表操作
+'''
+list = [ 'abcd', 786 , 2.23, 'Python', 70.2 ]  # 定义一个列表
+tinylist = [123, 'Python']
+
+print (list)            # 打印整个列表
+print (list[0])         # 打印列表的第一个元素
+print (list[1:3])       # 打印列表第二到第四个元素（不包含第四个元素）
+print (list[2:])        # 打印列表从第三个元素开始到末尾
+print (tinylist * 2)    # 打印tinylist列表两次
+print (list + tinylist) # 打印两个列表拼接在一起的结果
+
+a = [1, 2, 3, 4, 5, 6]
+
+a[0] = 9
+a[2:5] = [13, 14, 15]
+print(a)
+
+a[2:5] = []   # 将对应的元素值设置为 []
+print(a)
+'''
+
+
