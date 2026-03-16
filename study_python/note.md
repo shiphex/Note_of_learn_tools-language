@@ -326,8 +326,8 @@ if x:
 > 与Python字符串不一样的是，列表中的元素是可以改变的
 
 ``` python
-list = [ 'abcd', 786 , 2.23, 'runoob', 70.2 ]  # 定义一个列表
-tinylist = [123, 'runoob']
+list = [ 'abcd', 786 , 2.23, 'Python', 70.2 ]  # 定义一个列表
+tinylist = [123, 'Python']
 
 print (list)            # 打印整个列表
 print (list[0])         # 打印列表的第一个元素
@@ -353,3 +353,33 @@ print(a)
 letters = ['P', 'y', 't', 'h', 'o', 'n']
 print(letters[1: 4: 2]) #从第二个参数到第五个参数，以二为步长截取输出
 ```
+
+
+## Tuple元组
++ tuple的元素不可改变，但它可以包含可变的对象，比如list列表
++ 元组（tuple）与列表类似，不同之处在于元组的元素不能修改。
++ 元组写在小括号 () 里，元素之间用逗号隔开。
++ 元组也可以被索引和切片
+
+``` python
+tuple = ( 'abcd', 786 , 2.23, 'Python', 70.2  )
+tinytuple = (123, 'Python')
+
+print (tuple)             # 输出完整元组
+print (tuple[0])          # 输出元组的第一个元素
+print (tuple[1:3])        # 输出从第二个元素开始到第三个元素
+print (tuple[2:])         # 输出从第三个元素开始的所有元素
+print (tinytuple * 2)     # 输出两次元组
+print (tuple + tinytuple) # 连接元组
+```
+
+额外的语法规则:
+``` python
+tup1 = ()    # 空元组
+tup2 = (20,) # 一个元素，需要在元素后添加逗号
+```
+> note:  
+> string、list 和 tuple 都属于 sequence（序列）
+
+
+

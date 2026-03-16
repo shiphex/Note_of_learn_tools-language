@@ -243,4 +243,14 @@ letters = ['P', 'y', 't', 'h', 'o', 'n']
 print(letters[1: 4: 2]) #从第二个参数到第五个参数，以二为步长截取输出
 '''
 
+# This is a example of tuple operations.
+# 元组操作
+tuple = ( 'abcd', 786 , 2.23, 'Python', 70.2  )
+tinytuple = (123, 'Python')
 
+print (tuple)             # 输出完整元组
+print (tuple[0])          # 输出元组的第一个元素
+print (tuple[1:3])        # 输出从第二个元素开始到第三个元素
+print (tuple[2:])         # 输出从第三个元素开始的所有元素
+print (tinytuple * 2)     # 输出两次元组
+print (tuple + tinytuple) # 连接元组
