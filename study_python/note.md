@@ -465,7 +465,8 @@ if x[0] == ord("h"):
     print("The first element is 'h'")
 ```
 
-
+> note:  
+> 在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。  
 
 # Python数据类型转换
 |函数   |	描述|
