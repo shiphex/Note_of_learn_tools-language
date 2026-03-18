@@ -65,10 +65,13 @@ HelloGithub：优质资源周期汇总
 
 
 ### 分支
+先远程仓库操作：  
 + 在`git commit`后使用`git branch <name of branch>`创建分支
 + `git branch -a`查看全部分支
 + `git checkout <name of branch>`切换分支
-+ `git merge <name of branch>`合并分支并重新指向
++ `git merge <name of branch>`合并分支并重新指向  
+
+后本地仓库操作：  
 + 保存文件后，使用 `git add` 命令将文件标记为已解决冲突的状态
 + 完成合并后，继续进行其他合并操作`git merge --continue`
 + 完成所有合并操作后，提交合并结果`git commit -m "解决了文件 file 的合并冲突"`
