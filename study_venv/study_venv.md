@@ -17,11 +17,11 @@ uv pip freeze > requirements.txt # 生成一个包含所有已安装包及其精
 # 初始化流程
 + 创建虚拟环境：打开项目路径，终端输入
   ``` shell
-  $ uv venv
+  $ python3 -m venv .[venv_project_name]
   ```
-+ 初始化项目
++ 激活环境
   ``` shell
-  $ uv init
+  $ .[venv_project_name]\Scripts\activate
   ```
 
 + 添加安装依赖
