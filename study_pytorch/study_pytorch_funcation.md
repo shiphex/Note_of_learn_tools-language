@@ -95,4 +95,11 @@ import torch
 ```
 
 
+## torch.all() 与 torch.all()
+- torch.any()：只要有一个为 True，就返回 True
+- torch.all()：必须全部为 True，才返回 True
+
+
+## 
+
 # 内存连续性问题？
