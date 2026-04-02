@@ -33,6 +33,7 @@ print(output_tensor)
 
 
 ## nn.Dropout
+'''
 # 创建一个Dropout实例，设置丢弃概率为0.2
 dropout = nn.Dropout(p=0.2)
 
@@ -45,3 +46,21 @@ y = dropout(x)
 # 输出结果
 print("输入:\n", x)
 print("Dropout后的输出:\n", y)
+'''
+
+
+## .view
+a1 = torch.arange(0,16)
+print(a1)
+
+a2 = a1.view(16, -1)
+print(a2)
+a3 = a2.view(-1, 4)
+print(a3)
+a4 = a3.view(2, 2, 2, 2)
+print(a4)
+a5 = a4.view(2, 4, 2)
+print(a5)
+
+
+
