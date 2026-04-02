@@ -21,7 +21,28 @@ torch.randn(*size, *, generator=None, out=None, dtype=None, layout=torch.strided
   - bias (bool) 是否添加偏置项，默认为True。
 
 ```python
+import torch
 import torch.nn as nn
 
-# class torch.nn.Linear(in_features, out_features, bias=True, device=None, dtype=None)
+class torch.nn.Linear(in_features, out_features, bias=True, device=None, dtype=None)
 ```
+
+
+## nn.Dropout
+- 在训练期间，以概率 `p` 随机将输入张量中的一些元素归零。  
+- 被置零的元素在每次前向传播调用时都是独立选择的，并从伯努利分布中采样得出。  
+- 每个通道在每次前向传播调用时都将被独立地置零。  
+- 此外，在训练期间，输出会按 $\frac{1}{1-p}$ 的比例进行缩放。这意味着在评估过程中，该模块仅执行恒等映射函数。
+- 参数：
+  - p (float) – 元素被归零的概率。默认值：0.5
+  - inplace (bool) – 如果设置为 True，则该操作将就地执行。默认值：False
+- 输出：
+  - 输出与输入具有相同形状的张量
+``` python
+import torch
+import torch.nn as nn
+
+class torch.nn.Dropout(p=0.5, inplace=False)[source]
+```
+
+
