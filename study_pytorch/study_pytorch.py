@@ -116,4 +116,27 @@ print(torch.all(b == 1))
 '''
 
 
-## 
+## PyTorch中矩阵乘法
+'''
+# 创建两个张量
+a = torch.tensor([[1, 2], [3, 4]])
+b = torch.tensor([[2, 2], [2, 2]])
+# 使用*进行元素逐个相乘
+result1 = a * b
+print(result1)
+# 使用torch.mul进行元素逐个相乘
+result2 = torch.mul(a, b)
+print(result2)
+
+# 创建两个矩阵
+a = torch.tensor([[1, 2, 3], [4, 5, 6]])
+b = torch.tensor([[7, 8], [9, 10], [11, 12]])
+# 使用@进行矩阵乘法
+result1 = a @ b
+print(result1)
+# 使用torch.mm进行矩阵乘法
+result2 = torch.mm(a, b)
+print(result2)
+'''
+
+

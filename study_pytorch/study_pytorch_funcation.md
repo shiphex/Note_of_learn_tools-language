@@ -90,6 +90,7 @@ torch.cat(tensors, dim=0, *, out=None)
 ``` python
 import torch
 # 如果你有一个形状为(2, 3)的张量，使用x.transpose(0, 1)将会得到一个形状为(3, 2)的张量
+# transpose(-2, -1)：把张量倒数第二个维度 和 最后一个维度 交换位置。
 
 # 有一个形状为(2, 3, 4)的三维张量，使用y.permute(1, 0, 2)将会得到一个形状为(3, 2, 4)的张量
 ```
@@ -100,6 +101,12 @@ import torch
 - torch.all()：必须全部为 True，才返回 True
 
 
-## 
+## PyTorch中矩阵乘法
+- 元素逐个相乘：
+  - `*`
+  - torch.mul()
+- 矩阵乘法:
+  - @
+  - torch.mm()
 
 # 内存连续性问题？
