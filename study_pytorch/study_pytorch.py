@@ -84,3 +84,19 @@ print(D)
 '''
 
 
+## .transpose 与 .permute
+# 使用transpose交换维度
+# 创建一个二维张量
+x = torch.randn(2, 3)
+print("原始张量:\n", x)
+# 使用transpose交换维度
+x_transposed = x.transpose(0, 1)
+print("使用transpose交换维度:\n", x_transposed)
+
+# 使用permute重新排列维度
+# 创建一个三维张量
+y = torch.randn(2, 3, 4)
+print("原始三维张量:\n", y)
+# 使用permute重新排列维度
+y_permuted = y.permute(2, 0, 1)
+print("使用permute重新排列维度:\n", y_permuted)

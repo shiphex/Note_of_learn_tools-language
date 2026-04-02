@@ -82,3 +82,17 @@ import torch
 
 torch.cat(tensors, dim=0, *, out=None)
 ```
+
+
+## .transpose 与 .permute
+- `transpose` 函数用于交换张量的两个维度。它接受两个参数，分别是要交换的维度的索引。
+- `permute` 函数用于重新排列张量的维度。它接受一个参数，即一个整数序列，表示新的维度顺序。
+``` python
+import torch
+# 如果你有一个形状为(2, 3)的张量，使用x.transpose(0, 1)将会得到一个形状为(3, 2)的张量
+
+# 有一个形状为(2, 3, 4)的三维张量，使用y.permute(1, 0, 2)将会得到一个形状为(3, 2, 4)的张量
+```
+
+
+# 内存连续性问题？
