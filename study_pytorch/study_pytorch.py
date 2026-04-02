@@ -140,3 +140,30 @@ print(result2)
 '''
 
 
+## torch.triu()
+
+a = torch.randn(3, 3)
+a_1 = torch.triu(a)
+a_2 = torch.triu(a, diagonal=1)
+a_3 = torch.triu(a, diagonal=-1)
+print(a_1)
+print(a_2)
+print(a_3)
+# 
+b = torch.randn(4, 6)
+b_1 = torch.triu(b)
+b_2 = torch.triu(b, diagonal=1)
+b_3 = torch.triu(b, diagonal=-1)
+print(b_1)
+print(b_2)
+print(b_3)
+# 保留上三角区域和主对角线
+c = torch.randn(3, 3)
+c_0 = c.triu(0)
+c_1 = c.triu(1)
+c_2 = c.triu(2)
+c_3 = c.triu(-1)
+print(c_0)
+print(c_1)
+print(c_2)
+print(c_3)

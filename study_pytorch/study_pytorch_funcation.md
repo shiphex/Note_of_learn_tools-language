@@ -109,4 +109,20 @@ import torch
   - @
   - torch.mm()
 
+
+## torch.triu()
+- 返回矩阵（二维张量）或矩阵批次 input 的上三角部分，结果张量 out 的其余元素设为 0。  
+- 矩阵的上三角部分定义为对角线及其上方的所有元素。
+- 参数：
+  - input (Tensor) – 输入张量。
+  - diagonal (int, optional) – 要考虑的对角线。
+``` python
+torch.triu(input, diagonal=0, *, out=None)
+
+x.triu(1)   # 保留上三角区域
+x.triu(0)   # 保留上三角区域和主对角线
+x.triu(-1)  # 保留上三角区域、主对角线和下三角区域的第一条对角线
+```
+
+
 # 内存连续性问题？
