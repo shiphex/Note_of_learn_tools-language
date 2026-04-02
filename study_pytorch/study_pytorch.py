@@ -50,9 +50,10 @@ print("Dropout后的输出:\n", y)
 
 
 ## .view
+'''
 a1 = torch.arange(0,16)
 print(a1)
-
+# 将a1调整形状
 a2 = a1.view(16, -1)
 print(a2)
 a3 = a2.view(-1, 4)
@@ -61,6 +62,25 @@ a4 = a3.view(2, 2, 2, 2)
 print(a4)
 a5 = a4.view(2, 4, 2)
 print(a5)
+'''
 
+
+## torch.cat
+'''
+A = torch.ones(2, 3)        # 创建一个全1的张量，形状为(2, 3)
+B = 2 * torch.zeros(4, 3)   # 创建一个全0的张量，形状为(4, 3)，元素乘以2
+
+# 沿着第0维（行）拼接A和B
+C = torch.cat((A, B), dim=0)
+print(C)
+
+# 沿着第1维（列）拼接A和B
+D = torch.cat((A, B), dim=1)        # 错误，A和B的最后一个维度不匹配
+print(D)
+
+# dim=-1 表示在最后一个维度上进行拼接
+# E = torch.cat((A, B), dim=-1)         # 错误，A和B的最后一个维度不匹配
+# print(E)
+'''
 
 
