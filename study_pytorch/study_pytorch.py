@@ -1,6 +1,6 @@
-import torch
-import torch.version
-import torch.nn as nn
+# import torch
+# import torch.version
+# import torch.nn as nn
 
 # print(torch.__version__)
 # print(torch.version.cuda)  #输出CUDA版本
@@ -141,7 +141,7 @@ print(result2)
 
 
 ## torch.triu()
-
+'''
 a = torch.randn(3, 3)
 a_1 = torch.triu(a)
 a_2 = torch.triu(a, diagonal=1)
@@ -167,3 +167,75 @@ print(c_0)
 print(c_1)
 print(c_2)
 print(c_3)
+'''
+
+
+## torch.nn.ModuleList
+
+import torch
+import torch.nn as nn
+'''
+class MyModule(nn.Module):
+  def __init__(self):
+    super().__init__()
+    # 创建 10 个线性层
+    self.linears = nn.ModuleList([nn.Linear(10, 10) for _ in range(10)])
+
+  def forward(self, x):
+    for i, layer in enumerate(self.linears):
+        x = self.linears[i // 2](x) + layer(x)
+    return x
+
+
+model = MyModule()
+print(model)
+'''
+# 动态创建模型
+"""
+动态神经网络模型
+
+该类用于创建一个具有指定层数的全连接神经网络，每层都有ReLU激活函数
+"""
+class DynamicModel(nn.Module):
+  """
+  初始化动态神经网络模型
+  
+  Args:
+      num_layers (int): 隐藏层的数量
+      in_size (int): 输入特征的维度
+      hidden_size (int): 隐藏层的神经元数量
+      out_size (int): 输出层的神经元数量
+  """
+  def __init__(self, num_layers, in_size, hidden_size, out_size):
+    super().__init__()
+    # 存储网络层
+    layers = []
+    # 构建隐藏层，每层包含线性层和ReLU激活函数
+    for _ in range(num_layers):
+      layers.append(nn.Linear(in_size, hidden_size))  # 线性变换层
+      layers.append(nn.ReLU())  # ReLU激活函数
+      in_size = hidden_size  # 更新输入大小为当前隐藏层大小
+    # 添加输出层
+    layers.append(nn.Linear(hidden_size, out_size))
+    # 将层列表转换为ModuleList，以便PyTorch能够正确跟踪参数
+    self.layers = nn.ModuleList(layers)
+
+  """
+  前向传播方法
+  
+  Args:
+      x (torch.Tensor): 输入张量
+      
+  Returns:
+      torch.Tensor: 模型输出
+  """
+  def forward(self, x):
+    # 依次通过每一层
+    for layer in self.layers:
+      x = layer(x)
+    return x
+
+# 创建一个具有3个隐藏层、输入维度为10、隐藏层大小为20、输出维度为1的模型
+net = DynamicModel(3, 10, 20, 1)
+# 打印模型结构
+print(net)
