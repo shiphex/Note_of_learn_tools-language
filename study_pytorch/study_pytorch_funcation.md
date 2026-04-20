@@ -125,4 +125,74 @@ x.triu(-1)  # 保留上三角区域、主对角线和下三角区域的第一条
 ```
 
 
+## PyTorch nn.ModuleList 用法
+`torch.nn.ModuleList` 是 `PyTorch` 中的一个容器类，用于按列表形式存储多个子模块（`nn.Module` 对象），并确保它们被正确注册到模型中，从而参与 参数管理 和 自动求导。与普通 `Python list` 不同，`ModuleList` 中的模块会自动加入计算图并参与优化。
+
+核心特性
+- 自动参数注册：内部模块的权重和偏置会被模型识别。
+- 灵活访问：支持索引、切片、迭代等操作。
+- 动态构建：可在初始化或运行时添加模块。
+
+基本示例
+``` python
+import torch
+import torch.nn as nn
+
+class MyModule(nn.Module):
+  def __init__(self):
+    super().__init__()
+    # 创建 10 个线性层
+    self.linears = nn.ModuleList([nn.Linear(10, 10) for _ in range(10)])
+
+  def forward(self, x):
+    for i, layer in enumerate(self.linears):
+      x = self.linears[i // 2](x) + layer(x)
+    return x
+
+
+model = MyModule()
+print(model)
+```
+
+这里 `ModuleList` 像列表一样可迭代，但每个子模块都被注册，可参与训练。
+
+动态构建网络
+``` python
+class DynamicModel(nn.Module):
+  def __init__(self, num_layers, in_size, hidden_size, out_size):
+    super().__init__()
+    layers = []
+    for _ in range(num_layers):
+      layers.append(nn.Linear(in_size, hidden_size))
+      layers.append(nn.ReLU())
+      in_size = hidden_size
+    layers.append(nn.Linear(hidden_size, out_size))
+    self.layers = nn.ModuleList(layers)
+
+  def forward(self, x):
+    for layer in self.layers:
+      x = layer(x)
+    return x
+
+net = DynamicModel(3, 10, 20, 1)
+print(net)
+```
+这种方式适合层数可变的模型构建。
+
+常用方法
+- append(module)：在末尾添加模块
+- extend(modules)：批量添加模块
+- insert(index, module)：在指定位置插入模块
+
+与 `nn.Sequential` 区别
+
+`ModuleList` 不实现 `forward()`，需手动定义执行顺序，灵活性高。
+
+`Sequential` 内部已定义顺序执行，适合固定结构。
+
+总结 `nn.ModuleList` 是构建 动态网络结构 的利器，尤其适合循环生成层、条件添加层等场景。相比普通 `list`，它能确保参数被追踪并参与优化，是 `PyTorch` 模型开发中非常重要的组件。
+
+
+
+
 # 内存连续性问题？
