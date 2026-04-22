@@ -193,6 +193,155 @@ print(net)
 总结 `nn.ModuleList` 是构建 动态网络结构 的利器，尤其适合循环生成层、条件添加层等场景。相比普通 `list`，它能确保参数被追踪并参与优化，是 `PyTorch` 模型开发中非常重要的组件。
 
 
+## nn.Parameter
+它是一个包装器，将普通张量转换为可学习的参数，会自动添加到模块参数列表中。  
+函数定义：
+``` python
+# data：初始值，默认 None
+# requires_grad：是否需要计算梯度，默认 True
+# 返回值：nn.Parameter 对象
+torch.nn.Parameter(data=None, requires_grad=True)
+```
+
+例程：
+``` python
+import torch
+import torch.nn as nn
+
+class MyModule(nn.Module):
+    def __init__(self):
+        super(MyModule, self).__init__()
+        # 创建可学习参数
+        self.weight = nn.Parameter(torch.randn(10, 5))
+        self.bias = nn.Parameter(torch.zeros(5))
+
+    def forward(self, x):
+        return x @ self.weight.t() + self.bias
+
+model = MyModule()
+print("参数:", list(model.named_parameters()))
+print("权重形状:", model.weight.shape)
+```
+
+
+## torch.scatter_add
+torch.scatter_add 是 PyTorch 中用于将源张量的值加到指定位置的函数。它将 src 的值按照 index 指定的位置加到 input 中。  
+函数定义:
+``` python
+torch.scatter_add(input, dim, index, src)
+```
+参数:
+- input (Tensor): 输入张量。
+- dim (int): 散布的维度。
+- index (Tensor): 索引张量，指定要将 src 的值加到 input 的哪个位置。
+- src (Tensor): 源张量，要添加的值。  
+返回值:
+- torch.Tensor: 返回修改后的张量。  
+
+``` python
+import torch
+
+# 创建输入张量
+input = torch.zeros(3, 5)
+
+# 创建索引和源
+index = torch.tensor([[0, 1, 2, 0, 0],
+                      [1, 2, 0, 1, 2],
+                      [2, 0, 1, 2, 0]])
+src = torch.tensor([[1, 1, 1, 1, 1],
+                    [2, 2, 2, 2, 2],
+                    [3, 3, 3, 3, 3]])
+
+# 沿 dim=0 散布并累加
+output = torch.scatter_add(input, dim=0, index=index, src=src)
+
+print("输入:")
+print(input)
+print("n索引:")
+print(index)
+print("n源:")
+print(src)
+print("n结果:")
+print(output)
+```
+
+### 核心函数
+`torch.scatter_add`：**按指定维度，根据index索引位置，把src的值累加写入目标张量**，覆盖+累加，不是直接覆盖。
+
+---
+### 代码逐点解析
+1. 初始化
+```python
+input = torch.zeros(3, 5)
+```
+生成**3行5列**全0张量，作为被写入的容器。
+
+2. 关键参数
+- `dim=0`：按**行维度**散布（纵向索引）
+- `index`：和`src`同形状，**每个值代表要写入的行号**
+- `src`：待累加的数据源
+
+3. 运算逻辑（dim=0）
+对**每一列、每一行**：
+`index[i,j] = k` → 把 `src[i,j]` 加到 `output[k, j]`
+
+---
+### 举一列看懂（以第0列举例）
+- index第0列：`[0,1,2]`
+- src第0列：`[1,2,3]`
+  - 行0数据1 → 累加至第0行第0列
+  - 行1数据2 → 累加至第1行第0列
+  - 行2数据3 → 累加至第2行第0列
+
+再看**有重复索引**的列（比如第4列）：
+index第4列：`[0,2,0]`
+src第4列：`[1,2,3]`
+- 两个索引=0：\(1+3\) 累加进第0行第4列
+- 索引=2：2 进第2行第4列
+
+---
+### 最终结果规律
+- 无重复索引位置：直接等于src对应值
+- 同一目标位置被多个index指向：**数值累加**
+- 本质：分组求和，index是分组下标，src是待求和数据。
+
+
+## F.one_hot
+F.one_hot 是 PyTorch 中的一个函数，用于将整数类别标签转换为 独热编码（One-Hot Encoding） 格式。  
+函数定义:
+``` python
+torch.nn.functional.one_hot(tensor, num_classes: Optional[int] = None) -> Tensor
+```
+参数:
+- tensor (Tensor): 输入张量，包含类别索引。
+- num_classes (int, 可选): 类别总数。如果未指定，将根据输入张量的最大值推断。
+
+返回值:
+- torch.Tensor: 独热编码后的张量。
+
+
+基本用法:
+``` python
+import torch
+import torch.nn.functional as F
+
+# 示例标签（类别索引）
+labels = torch.tensor([0, 2, 1])
+
+# 独热编码（自动推断类别数）
+one_hot_auto = F.one_hot(labels)
+print(one_hot_auto)
+# tensor([[1, 0, 0],
+#         [0, 0, 1],
+#         [0, 1, 0]])
+
+# 指定类别总数（num_classes）
+one_hot_fixed = F.one_hot(labels, num_classes=4)
+print(one_hot_fixed)
+# tensor([[1, 0, 0, 0],
+#         [0, 0, 1, 0],
+#         [0, 1, 0, 0]])
+```
 
 
 # 内存连续性问题？
