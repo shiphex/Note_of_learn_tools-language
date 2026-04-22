@@ -171,11 +171,11 @@ print(c_3)
 
 
 ## torch.nn.ModuleList
-
+'''
 import torch
 import torch.nn as nn
 '''
-class MyModule(nn.Module):
+'''class MyModule(nn.Module):
   def __init__(self):
     super().__init__()
     # 创建 10 个线性层
@@ -188,7 +188,7 @@ class MyModule(nn.Module):
 
 
 model = MyModule()
-print(model)
+print(model)'''
 '''
 # 动态创建模型
 """
@@ -239,3 +239,77 @@ class DynamicModel(nn.Module):
 net = DynamicModel(3, 10, 20, 1)
 # 打印模型结构
 print(net)
+'''
+
+
+# nn.Parameter
+'''
+import torch
+import torch.nn as nn
+
+class MyModule(nn.Module):
+    def __init__(self):
+        super(MyModule, self).__init__()
+        # 创建可学习参数
+        self.weight = nn.Parameter(torch.randn(10, 5))
+        self.bias = nn.Parameter(torch.zeros(5))
+
+    def forward(self, x):
+        return x @ self.weight.t() + self.bias
+
+model = MyModule()
+print("参数:", list(model.named_parameters()))
+print("权重形状:", model.weight.shape)
+'''
+
+
+# torch.scatter_add
+'''
+import torch
+
+# 创建输入张量
+input = torch.zeros(3, 5)
+
+# 创建索引和源
+index = torch.tensor([[0, 1, 2, 0, 0],
+                      [1, 2, 0, 1, 2],
+                      [2, 0, 1, 2, 0]])
+src = torch.tensor([[1, 1, 1, 1, 1],
+                    [2, 2, 2, 2, 2],
+                    [3, 3, 3, 3, 3]])
+
+# 沿 dim=0 散布并累加
+output = torch.scatter_add(input, dim=0, index=index, src=src.to(input.dtype))
+
+print("输入:")
+print(input)
+print("n索引:")
+print(index)
+print("n源:")
+print(src)
+print("n结果:")
+print(output)
+'''
+
+
+# F.one_hot
+
+import torch
+import torch.nn.functional as F
+
+# 示例标签（类别索引）
+labels = torch.tensor([0, 2, 1])
+
+# 独热编码（自动推断类别数）
+one_hot_auto = F.one_hot(labels)
+print(one_hot_auto)
+# tensor([[1, 0, 0],
+#         [0, 0, 1],
+#         [0, 1, 0]])
+
+# 指定类别总数（num_classes）
+one_hot_fixed = F.one_hot(labels, num_classes=4)
+print(one_hot_fixed)
+# tensor([[1, 0, 0, 0],
+#         [0, 0, 1, 0],
+#         [0, 1, 0, 0]])
