@@ -380,4 +380,29 @@ with torch.no_grad() → 控制粒度细，可局部关闭梯度计算。
 @torch.no_grad() → 一次性作用于整个函数，适合推理接口。 在推理或验证阶段，合理使用它们可提升性能并降低显存压力。
 
 
+## repeat_interleave
+`repeat_interleave` 是 PyTorch 里常用的张量复制函数，核心作用是：**沿着某个维度，把每个元素重复 N 次再拼接起来**。
+
+- 和 `repeat` 不同：
+  - `repeat`：整体复制多遍（块重复）
+  - `repeat_interleave`：逐个元素重复（交错重复）
+
+- 常用形式：
+  ```python
+  x.repeat_interleave(repeats, dim)
+  ```
+  - `repeats`：每个元素重复几次
+  - `dim`：在哪个维度上操作
+
+- 简单例子：
+  ```python
+  import torch
+
+  x = torch.tensor([1,2,3])
+  x.repeat_interleave(2)  # [1,1,2,2,3,3]
+  ```
+
+总结：**按元素逐个重复展开，而不是整块复制。**
+
+
 # 内存连续性问题？
