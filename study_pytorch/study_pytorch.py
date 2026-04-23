@@ -331,3 +331,13 @@ print("output: ",output)
 '''
 
 
+# repeat_interleave
+'''
+import torch
+
+x = torch.tensor([1,2,3])
+print("x: ",x)
+x.repeat_interleave(2)  # [1,1,2,2,3,3]
+print("x.repeat_interleave(2): ",x.repeat_interleave(2))
+'''
+
