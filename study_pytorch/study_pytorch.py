@@ -293,7 +293,7 @@ print(output)
 
 
 # F.one_hot
-
+'''
 import torch
 import torch.nn.functional as F
 
@@ -313,3 +313,21 @@ print(one_hot_fixed)
 # tensor([[1, 0, 0, 0],
 #         [0, 0, 1, 0],
 #         [0, 1, 0, 0]])
+'''
+
+
+# torch.no_grad()
+'''
+import torch
+@torch.no_grad()
+def inference(model, data):
+   return model(data) # 函数内所有操作均不计算梯度
+# 示例调用
+model = torch.nn.Linear(3, 1)
+input_data = torch.randn(2, 3)
+print("input_data: ",input_data)
+output = inference(model, input_data)
+print("output: ",output)
+'''
+
+
