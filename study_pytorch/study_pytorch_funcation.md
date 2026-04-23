@@ -344,4 +344,40 @@ print(one_hot_fixed)
 ```
 
 
+## torch.no_grad 装饰器与用法
+在 PyTorch 中，torch.no_grad() 及 @torch.no_grad() 都用于禁用梯度计算，常用于推理（Inference）或模型评估阶段，以节省显存和计算资源。  
+核心作用： 在禁用梯度模式下，即使输入张量 requires_grad=True，计算结果也会自动变为 requires_grad=False，从而避免反向传播所需的中间状态存储。  
+1. 上下文管理器形式 适合在代码的局部范围内临时关闭梯度计算：
+``` python
+import torch
+x = torch.tensor([1.0, 2.0, 3.0], requires_grad=True)
+with torch.no_grad():
+   y = x * 2 # 不会记录梯度
+print(y.requires_grad) # False
+```
+这种方式灵活，可在不同代码块中多次启用/关闭梯度计算。
+
+2. 装饰器形式 适合将整个函数标记为无需梯度：
+``` python
+import torch
+@torch.no_grad()
+def inference(model, data):
+   return model(data) # 函数内所有操作均不计算梯度
+# 示例调用
+model = torch.nn.Linear(3, 1)
+input_data = torch.randn(2, 3)
+output = inference(model, input_data)
+```
+这种方式简洁，适合推理 API 或评估函数。
+
+3. 注意事项  
+工厂函数例外：在 torch.no_grad() 中使用 torch.nn.Parameter() 等创建张量时，requires_grad 仍可能为 True。  
+线程本地性：该模式只影响当前线程，不会影响其他线程的计算。  
+性能收益：禁用梯度可显著减少内存占用，并加快推理速度，尤其在大模型部署时效果明显。
+
+总结：  
+with torch.no_grad() → 控制粒度细，可局部关闭梯度计算。  
+@torch.no_grad() → 一次性作用于整个函数，适合推理接口。 在推理或验证阶段，合理使用它们可提升性能并降低显存压力。
+
+
 # 内存连续性问题？
