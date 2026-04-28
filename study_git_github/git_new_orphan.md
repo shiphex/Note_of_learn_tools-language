@@ -240,3 +240,103 @@ git tag v1.0 <commit-hash>
 # 推送新标签到远程
 git push origin v1.0
 ```
+
+
+## 第八步的补充说明
+
+按照第八步的命令顺序，在执行 `git branch -m main-v2 main` **之前**，原有的 `main` 已经被处理掉了：
+
+```
+git push origin --delete main   # ← 此时远端 main 已删除
+git branch -m main-v2 main      # ← 此时本地 main 已不存在（你在 main-v2 上）
+```
+
+所以重命名时**不存在冲突**，具体状态是：
+
+| | 原 `main` 分支 | 新 `main`（原 `main-v2`）|
+|---|---|---|
+| **本地** | 创建 orphan 分支时就已离开，`git rm -rf .` 后本地的 `main` 实际已被孤立丢弃 | `git branch -m` 后正常存在 |
+| **远端** | `git push origin --delete main` 执行后**已删除** | `git push origin main` 后正常存在 |
+
+---
+
+**如果你跳过了 `git push origin --delete main` 这一步**，直接重命名再 push，则会遇到：
+
+```bash
+git branch -m main-v2 main
+git push origin main
+# ❌ 报错：remote 上已存在 main，且两者无共同历史（孤儿分支）
+# 需要加 --force 才能覆盖：
+git push origin main --force
+```
+
+所以流程里**先删远端 main、再重命名、再推送**的顺序是刻意安排的，避免 force push 的风险提示。
+
+
+## 保留远程旧 `main` 分支的做法
+
+把第八步改成这样：
+
+```bash
+# 1. 先在远端把旧 main 备份成一个新分支名
+git push origin main:archive/main-v1
+
+# 2. 本地重命名 main-v2 → main
+git branch -m main-v2 main
+
+# 3. 强推覆盖远端 main（旧内容已备份，放心 force）
+git push origin main --force
+
+# 4. 设置上游追踪
+git push origin --set-upstream origin main
+```
+
+执行后远端状态：
+
+```
+origin/main          ← 新的 V2 孤儿分支（干净）
+origin/archive/main-v1  ← 旧 main 完整保留，只读存档
+```
+
+---
+
+### `archive/v1-legacy` Tag 完全不受影响
+
+Tag 是**直接指向某个 commit 对象**的，和分支名无关：
+
+```
+archive/v1-legacy tag
+        │
+        ▼
+    commit abc123  ←── 这个 commit 对象永远在 Git 对象库里
+        │
+    （旧 main 的最后一次提交）
+```
+
+- 删除或重命名分支**不会删除 commit 对象**
+- Tag 只认 commit hash，不认分支名
+- 只要不执行 `git push origin --delete archive/v1-legacy`，Tag 就永远在远端
+
+验证一下：
+
+```bash
+# 确认 tag 还在远端
+git ls-remote --tags origin | grep archive
+
+# 通过 tag 检出旧代码（任何时候都可以）
+git checkout archive/v1-legacy
+```
+
+---
+
+### 最终远端结构
+
+```
+远端 (origin)
+├── main                  ← V2 新起点（孤儿分支，无旧历史）
+├── archive/main-v1       ← 旧 main 完整分支，可随时 checkout
+└── tags/
+    └── archive/v1-legacy ← 指向旧 main 最后一个 commit
+```
+
+`archive/main-v1` 分支和 `archive/v1-legacy` Tag 双重保险，旧代码任何时候都找得回来。 
