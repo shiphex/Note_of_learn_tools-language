@@ -161,7 +161,7 @@ git log --oneline
 
 ## 第八步：GitHub 上切换默认分支
 
-```
+``` bash
 GitHub 仓库页面 →
   Settings →
     Branches →
@@ -171,6 +171,9 @@ GitHub 仓库页面 →
 git push origin --delete main
 
 # 本地重命名分支
+git tag   # 检查本地标签是否存档 Tag
+git branch -m main $OLD_TAG # 将本地旧 main 分支重命名为为存档 Tag 名
+git branch -D main  # 删除本地 main 分支（可选）
 git branch -m main-v2 main
 git push origin main
 git push origin --set-upstream origin main
