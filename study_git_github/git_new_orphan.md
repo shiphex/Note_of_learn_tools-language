@@ -218,4 +218,25 @@ Claude Code
 
 ---
 
-**最容易忘的两步**：打完 `archive/v1-legacy` Tag 之后立刻 push，以及 CLAUDE.md 要在 `git rm -rf .` 之后**第一个**重新创建——这是 Claude Code 新记忆的起点。
+**最容易忘的两步**：打完 `archive/v1-legacy` Tag 之后立刻 push，以及 CLAUDE.md 要在 `git rm -rf .` 之后**第一个**重新创建——这是 Claude Code 新记忆的起点。  
+
+
+## 补充：删除 Tag
+
+``` bash
+# 创建标签 v1.0 指向当前提交
+git tag v1.0
+# 再次创建同名标签会报错
+git tag v1.0
+# fatal: tag 'v1.0' already exists
+
+# 删除本地旧标签
+git tag -d v1.0
+# 删除远程旧标签（两种写法，兼容不同版本Git）
+git push origin :refs/tags/v1.0
+git push --delete origin v1.0
+# 在指定提交上创建新标签
+git tag v1.0 <commit-hash>
+# 推送新标签到远程
+git push origin v1.0
+```
