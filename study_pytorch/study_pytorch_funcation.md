@@ -405,4 +405,71 @@ with torch.no_grad() → 控制粒度细，可局部关闭梯度计算。
 总结：**按元素逐个重复展开，而不是整块复制。**
 
 
+## numpy.argsort()
+numpy.argsort() 是 NumPy 中非常常用的排序函数，它的作用是 返回数组按指定轴排序后的索引，而不是直接返回排序后的数组。  
+基本语法：
+``` python
+numpy.argsort(a, axis=-1, kind='quicksort', order=None)
+```
+参数说明：
+- a：输入数组（可以是多维）。
+- axis：排序的轴，默认 -1 表示最后一个轴。
+  - axis=0 → 按列排序
+  - axis=1 → 按行排序
+- kind：排序算法，常用有：
+  - 'quicksort'（默认，快排）
+  - 'mergesort'（稳定排序）
+  - 'heapsort'
+  - 'stable'（稳定排序，推荐用于有相等值时保持原顺序）
+- order：仅对结构化数组有效，指定按哪个字段排序。  
+
+基本用法：
+``` python
+import numpy as np
+
+arr = np.array([3, 1, 2])
+idx = np.argsort(arr)  # 返回排序后的索引
+print(idx)             # [1 2 0]
+print(arr[idx])        # [1 2 3] 通过索引得到排序后的数组
+```
+
+多维数组排序：
+``` python
+import numpy as np
+
+arr2 = np.array([[3, 1, 2],
+                 [9, 8, 7]])
+
+# 按行排序（axis=1）
+print(np.argsort(arr2, axis=1))
+# [[1 2 0]
+#  [2 1 0]]
+
+# 按列排序（axis=0）
+print(np.argsort(arr2, axis=0))
+# [[0 0 1]
+#  [1 1 0]]
+```
+
+降序排序：
+``` python
+import numpy as np
+
+arr = np.array([3, 1, 2])
+idx_desc = np.argsort(arr)[::-1]
+print(idx_desc)   # [0 2 1]
+print(arr[idx_desc])  # [3 2 1]
+```
+
+
+
+
+
+
+
+
+
+
+# 高纬度运算（.sum()、等）
+
 # 内存连续性问题？

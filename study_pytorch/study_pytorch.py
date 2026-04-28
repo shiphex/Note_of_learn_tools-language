@@ -341,3 +341,20 @@ x.repeat_interleave(2)  # [1,1,2,2,3,3]
 print("x.repeat_interleave(2): ",x.repeat_interleave(2))
 '''
 
+
+# argsort
+
+import numpy as np
+
+arr2 = np.array([[3, 1, 2],
+                 [9, 8, 7]])
+
+# 按行排序（axis=1）
+print(np.argsort(arr2, axis=1))
+# [[1 2 0]
+#  [2 1 0]]
+
+# 按列排序（axis=0）
+print(np.argsort(arr2, axis=0))
+# [[0 0 1]
+#  [1 1 0]]
