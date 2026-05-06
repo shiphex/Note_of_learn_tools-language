@@ -430,6 +430,7 @@ print ("Good bye!")
 
 # This is a example of range() function usage.
 # range() 函数用法示例
+'''
 # 一般用法
 for i in range(5):
     print(i)
@@ -451,3 +452,16 @@ for i in range(len(a)):
 
 # 使用 range() 函数来创建一个列表
 list(range(5))
+'''
+
+
+# This is a example of exception handling.
+## 异常处理示例
+try:
+    fh = open("testfile", "w", encoding="utf-8")
+    fh.write("这是一个测试文件，用于测试异常!!")
+except IOError:
+    print("Error: 没有找到文件或读取文件失败")
+else:
+    print("内容写入文件成功")
+    fh.close()
