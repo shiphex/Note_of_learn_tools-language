@@ -160,6 +160,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -169,5 +170,9 @@
     }
   },
   "active": "71cd26b093e6e800",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "study_git_github/git_new_orphan.md",
+    "study_git_github/conventional_commits.md",
+    "study_git_github/study_git_github.md"
+  ]
 }
