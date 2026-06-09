@@ -21,7 +21,7 @@
 4. **在IDE工具切换到 `compare` 分支或者 `feature` 分支**
 5. 终端输入 `git fetch origin` 拉取远端最新代码
 6. 执行 `git merge origin/main`、`git merge origin/master` 或 `base` 分支等，同步远端最新代码  
-   （或 `git rebase origin/main`、`git rebase main`，如果有冲突，解决冲突后`git rebase --continue`，再快速合并到主分支：`git checkout main` -> `git merge feature`，最后推送到远程仓库：`git push origin main`）
+   （或 `git rebase origin/main`、`git rebase main`，如果有冲突，解决冲突后`git rebase --continue`，再快速合并到主分支：`git checkout main` -> `git merge feature`(`git merge --squash feature`合并成一次commit)，最后推送到远程仓库：`git push origin main`）
 
  **对冲突进行合并**
 1. 点击 `Merge pull request` 按钮合并，最后点击 `Confirm merge` 验证
