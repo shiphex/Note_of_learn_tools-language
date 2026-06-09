@@ -20,9 +20,11 @@
 3. 回到IDE工具中，合并冲突
 4. **在IDE工具切换到 `compare` 分支或者 `feature` 分支**
 5. 终端输入 `git fetch origin` 拉取远端最新代码
-6. 执行 `git merge origin/main`、`git merge origin/master` 或 `base` 分支等，同步远端最新代码
-7. **对冲突进行合并**
-8. 点击 `Merge pull request` 按钮合并，最后点击 `Confirm merge` 验证
-9. `git checkout main`、`git pull origin main`、`git merge feature/name` 合并 `feature` 分支到 `main` 分支
-10. 合并完所有分支、所有冲突后，主分支执行 `git pull` 拉取全部更新
-11. 执行、测试合并后的代码，确保没有问题
+6. 执行 `git merge origin/main`、`git merge origin/master` 或 `base` 分支等，同步远端最新代码  
+   （或 `git rebase origin/main`、`git rebase main`，如果有冲突，解决冲突后`git rebase --continue`，再快速合并到主分支：`git checkout main` -> `git merge feature`，最后推送到远程仓库：`git push origin main`）
+
+ **对冲突进行合并**
+1. 点击 `Merge pull request` 按钮合并，最后点击 `Confirm merge` 验证
+2.  `git checkout main`、`git pull origin main`、`git merge feature/name` 合并 `feature` 分支到 `main` 分支
+3.  合并完所有分支、所有冲突后，主分支执行 `git pull` 拉取全部更新
+4.  执行、测试合并后的代码，确保没有问题
