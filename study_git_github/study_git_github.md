@@ -51,9 +51,10 @@ HelloGithub：优质资源周期汇总
    
 
 ### 跟踪管理仓库代码
-  1. 指定所需的文件来进行追踪(暂时保存)` git add <file>`(添加全部文件` git add .`)
-  2. 提交变更(固定成一个版本)`git commit`进入vim书写变更解释(直接书写变更解释`git commit -m 'xxxx'`、`git commit -m "xxxx"`)
-  3. 查看日志`git log`
+  1. 可使用 `git diff` 查看文件的变更内容
+  2. 指定所需的文件来进行追踪(暂时保存)` git add <file>`(添加全部文件` git add .`)
+  3. 提交变更(固定成一个版本)`git commit`进入vim书写变更解释(直接书写变更解释`git commit -m 'xxxx'`、`git commit -m "xxxx"`)
+  4. 查看日志`git log`
 
 ### 分支重命名
 `git branch -m <new name of branch>`
