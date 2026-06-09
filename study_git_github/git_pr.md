@@ -28,3 +28,10 @@
 2.  `git checkout main`、`git pull origin main`、`git merge feature/name` 合并 `feature` 分支到 `main` 分支
 3.  合并完所有分支、所有冲突后，主分支执行 `git pull` 拉取全部更新
 4.  执行、测试合并后的代码，确保没有问题
+
+
+## 清除开发并合并完的branch
+1. github找到`View all branche`查看全部分支，点击`Delete branch`删除合并完的分支
+2. 本地先将 `git worktree` 中的分支库移除
+3. 本地切换到 `main` 分支，然后执行`git branch -D feature/name` 删除合并完的分支
+4. 最后，在main分支执行`git pull origin main` 拉取最新代码
