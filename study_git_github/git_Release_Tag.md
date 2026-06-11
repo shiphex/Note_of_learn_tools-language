@@ -36,3 +36,11 @@
 3. 并 `git checkout stable/2.9` 或 `release/2.9` 转移到该分支，
 4. 再`git branch -D 2.9.0-bug-fix`将 `v2.9.0-bug-fix` 分支删除。  
 5. 这样 `stable/2.9` 或 `release/2.9` 将指向2.9版本最新的bug修复版本，这种分支被称之为 **`stable`** 或 **`release` 分支**。
+
+
+
+
+> 待学习：
+
+【这可能是最方便的嵌入式Linux学习开发姿势，基于Git+Release自动化构建嵌入式Linux系统镜像及开发套件的分发系统，满足你不同产品的开发需求！】 https://www.bilibili.com/video/BV1H44y157vm/?share_source=copy_web&vd_source=1e7e09f5b87e218f8cde7fe5df1821c7
+
