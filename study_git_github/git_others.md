@@ -54,6 +54,11 @@
 git revert HEAD
 ```
 
+若需要撤销两个提交，例如撤销上一个提交和上上一个提交，上一个提交的hash值为 `c2e2`，上上一个提交的hash值为 `70a0`，可使用 `git revert 70a0`(`git revert HEAD~1`) 等命令，撤销两步。  
+
+**注意：**若提交已经 `push` 到远程仓库的公有分支，不能使用 `reset` 操作，否则会导致远程仓库的提交历史被修改，只能使用 `revert` 操作。  
+对于私有分支：`git revert HEAD~1` ，然后 `git reset -f` （分支少了 `commit` 的内容，必须强制推送）
+
 ---
 
 ## `reset`
