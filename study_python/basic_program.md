@@ -746,3 +746,55 @@ else:
     print "内容写入文件成功"
     fh.close()
 ```
+
+
+## *args 和 **kwargs
+
+### *args
+1. 函数参数里的 *args：打包任意多个位置实参
+``` python
+def trigger_hooks(event: str, *args):
+```
+函数参数里的 *args：打包任意多个位置实参。*args：* 是位置参数收集符，会把函数调用时，event 后面所有多余的位置参数，打包成一个元组 (tuple) 存入 args。
+
+示例：
+``` python
+def demo(a, *args):
+    print(a)
+    print(args, type(args))
+
+demo(10)          # args = ()
+demo(10, 20, 30)  # args = (20, 30)
+demo(10, "x", [1,2]) # args = ("x", [1,2])
+```
+输出：
+``` python
+10
+() <class 'tuple'>
+10
+(20, 30) <class 'tuple'>
+10
+('x', [1, 2]) <class 'tuple'>
+```
+
+
+
+2. 函数调用时 callback(*args)：解包元组，拆成独立位置参数
+``` python
+result = callback(*args)
+```
+这里的 * 是解包运算符，反向操作：把元组 args 里的每一个元素，拆开、依次传给 callback 作为独立位置参数。
+
+示例：
+``` python
+args = (1, "test", {"id": 1})
+
+# 不写*：把整个元组当成1个参数传给callback
+callback(args)  
+
+# 加*：拆成3个独立参数，等价于 callback(1, "test", {"id":1})
+callback(*args)
+```
+
+### **kwargs
+**kwargs：处理不定长关键字参数 → 打包为 dict；
