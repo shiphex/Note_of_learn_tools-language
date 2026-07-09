@@ -798,3 +798,35 @@ callback(*args)
 
 ### **kwargs
 **kwargs：处理不定长关键字参数 → 打包为 dict；
+
+
+
+## enumerate()
+enumerate(todos)：遍历todos序列，同时拿到索引i和对应元素t。
+``` python
+for i, t in enumerate(todos):
+# 等价于：
+# i = 索引值
+# t = todos[i]
+
+# 例子：
+todos = ["看书","跑步","玩手机"]
+for i, t in enumerate(todos):
+    print(i, t)
+# 输出：
+'''
+0 看书
+1 跑步
+2 玩手机
+'''
+
+# 例子：enumerate(序列, start=1)可以让下标从 1 开始
+for i, t in enumerate(todos, start=1):
+    print(i, t)
+# 输出：
+'''
+1 看书
+2 跑步
+3 玩手机
+'''
+```
