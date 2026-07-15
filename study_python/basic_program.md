@@ -830,3 +830,14 @@ for i, t in enumerate(todos, start=1):
 3 玩手机
 '''
 ```
+
+
+## split()
+str.split(sep, maxsplit)：
+- sep：分割字符串，这里是"---"；
+- maxsplit=2：最多分割 2 次。
+
+### 运行逻辑
+- Python 从左往右查找---；  
+- 只做 2 次切割，分割完成后剩下所有内容合并成最后一段，不再继续分割；  
+- 返回值 parts 一定是列表，列表里最多有 maxsplit + 1 = 3 个元素。  

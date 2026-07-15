@@ -89,3 +89,13 @@ for field in fields:
 if hasattr(p, "name"):
     print(f"名字是: {getattr(p, 'name')}")
 ```
+
+
+## .iterdir() 方法
+.iterdir()：Path 的内置方法，遍历该目录下所有直接子项（文件 + 文件夹）；
+
+返回迭代器，里面每个元素依然是 Path 对象；
+
+
+## sorted(...) 函数
+sorted() 接收返回的路径对象列表，默认按照路径字符串字典序排序（文件名按字母顺序）；
