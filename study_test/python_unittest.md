@@ -135,6 +135,12 @@ def test_get_interest_rate(self):
 
 例如：
 ``` shell
+# 运行 test_vector.py 文件中的所有测试方法
+python -m unittest
+
+# 发现模式，寻找所有 test 方法的文件并执行
+python -m unittest discover
+
 # 运行 test_vector.py 文件中的 TestVector 类的 test_add 方法
 python -m unittest tests.test_vector.TestVector.test_add
 
