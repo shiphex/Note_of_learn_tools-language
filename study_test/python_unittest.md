@@ -61,6 +61,55 @@ with self.assertRaises(ValueError):     # 如果传入的参数不是数字，�
     Vector(1, 2)
 ```
 
+4. patch() 模拟对象方法
+使用 `from unittest.mock import patch` 来引入。
+使用案例：
+``` python
+def test_get_interest_rate(self):
+    with patch('BanAccount.requests.get') as mock_get:  # 当调用 BanAccount 中的 requests.get 方法时，会返回 mock_get 对象
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {'rate': 0.5}
+        interest_rate = BanAccount.get_interest_rate()
+        self.assertEqual(interest_rate, 0.5)
+```
+  - Mock() 方法
+    - 用于创建没有的属性或者方法
+    ``` python
+    mock = Mock()
+    mock.get.return_value = 100     # 捏造 get 方法，返回值为 100
+    print(mock.get())
+    ```
+  - MagicMock() 方法
+    - 可定义魔法方法
+    ``` python
+    magic_mock = MagicMock()
+    magic_mock.__str__.return_value = 'abc'
+    print(str(magic_mock))
+    ```
+  - patch() 方法
+    - 上下文管理器：
+    ``` python
+    def foo():
+        return 'abc'
+
+    with patch('__main__.foo') as mock_foo:     # 将传入 patch 的方法替换为 mock_foo 对象
+        mock_foo.return_value = 123
+        print(foo())
+    ```
+    - 装饰器：
+    ``` python
+    def foo():
+        return 'abc'
+
+    @patch('__main__.foo')  # 将 '__main__.foo' 方法替换为 mock_foo 对象
+    def test_foo(mock_foo):
+        mock_foo.return_value = 123
+        print(foo())
+    
+    test_foo()
+    ```
+
+
 ## 2.3 常用 unittest 的 feature
 
 ### 2.3.1 在运行 test 前后执行代码
