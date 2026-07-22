@@ -86,9 +86,11 @@ HelloGithub：优质资源周期汇总
 4. 创建仓库`creat repository`
 5. 重命名主分支为main`git branch -M main`
 6. 添加远程仓库地址连接`git remote add origin <url of repository>`
-7. 推送上传到远程仓库`git push -u origin main`(第一次推送时加 `-u`，建立本地分支与远程分支的跟踪关系，之后可以简化成 `git push`或`git pull`。)
+7. 推送上传到远程仓库`git push -u origin main`
+   - 第一次推送时加 `-u`，建立本地分支与远程分支的跟踪关系，之后可以简化成 `git push`或`git pull`。
+   - 推送远程仓库没有的分支时，可以在本地切换到该分支，再使用 `git push origin HEAD` 推送。
 8. 输入用户名和密码（github邮箱、密码）
-9. 刷新远程仓库网页检测是否上传成功
+9.  刷新远程仓库网页检测是否上传成功
 10. 若远程仓库合并了其他人的分支更新了导致版本不一致，则需要更新本地版本`git fetch origin`，再`git merge origin/main`把远程仓库的代码合并到本地分支中
 
 ## 远程仓库的管理
@@ -101,6 +103,8 @@ HelloGithub：优质资源周期汇总
 + 修改更新工程代码，再` git add <file>`、`git commit -m 'xxxx'`、`git push`(`git push -u origin main`)
 + 可在远程仓库中看到除原有分支外，还有**新**`push`的分支
 + 若远程仓库更新了`commit`导致版本不一致，则需要更新本地版本`git fetch upstream`，再`git merge upstream/main`把远程仓库的代码合并到本地分支中，最后`git push`尽快提交新pr
++ 删除远程分支 `git push origin --delete XXXXXX`
++ 清理本地缓存 `git fetch origin --prune`
 
 
 ### 远程仓库中管理不同分支
