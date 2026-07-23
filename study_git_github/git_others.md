@@ -30,6 +30,20 @@
 4. `Git Graph` 中可以看到 `stash` 操作
 5. 在处理完另一个分支后，回到 `stash` 所在分支，再在 `Git Graph` 中右击 `stash` ，点击 `Pop Stash…` 恢复储存的修改  
    - 或者：在`CHANGES`/`更改`栏最右侧有三个点 `⋯` ，找到`Stash`/`储存` 选项栏，点击 `Pop Latest Stash` 恢复储存的修改
+  
+### 命令行操作方法
+- 保存当前修改
+  - `git stash`：保存工作区和暂存区的所有修改。
+  - `git stash push -m "add notes"`：保存时添加备注说明，方便识别。
+- 查看与管理列表
+  - `git stash list`：查看所有保存的 `stash` 记录列表。
+  - `git stash show`：查看最近一次 `stash` 的修改详情。
+- 恢复修改
+  - `git stash pop`：恢复最近一次保存的修改，并从记录列表中删除它。
+  - `git stash apply`：恢复修改，但不从记录列表中删除它。
+- 删除记录
+  - `git stash drop stash@{n}`：删除指定的某条 `stash` 记录。
+  - `git stash clear`：清空所有保存的 `stash` 记录。
 
 ---
 
