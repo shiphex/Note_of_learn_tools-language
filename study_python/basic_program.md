@@ -841,3 +841,87 @@ str.split(sep, maxsplit)：
 - Python 从左往右查找---；  
 - 只做 2 次切割，分割完成后剩下所有内容合并成最后一段，不再继续分割；  
 - 返回值 parts 一定是列表，列表里最多有 maxsplit + 1 = 3 个元素。  
+
+
+# super().__init__(**kwargs) 和 kwargs.get()
+
+我们用一个“层层剥洋葱”的比喻，把这两者在 Python 类继承中的配合完全拆解开。
+在复杂的面向对象设计中，super().__init__(**kwargs) 和 kwargs.get() 共同解决了一个核心问题：当多个类组合在一起时，参数该怎么分配、怎么安全提取，才不会导致代码崩溃？
+
+### 第一层：理解 **kwargs 的本质（包裹与解包）
+在看具体方法前，必须先看懂 **kwargs（Keyword Arguments）。它是一个魔法打包盒：
+
+   1. 打包（形参位置）：在函数定义 def __init__(self, **kwargs) 中，它把所有传进来的、没有被显式接收的“键值对”参数，打包成一个普通的 Python 字典（Dict）。
+   2. 解包（实参位置）：在函数调用 super().__init__(**kwargs) 中，它把字典拆开，重新还原成 key=value, key2=value2 的形式传给下一个函数。
+
+
+### 第二层：细说 kwargs.get() —— 安全的“探针”
+当一堆参数被打包进 kwargs 字典后，子类需要拿走属于它自己的参数。
+### 1. 为什么不用 kwargs['key']？
+如果你的子类需要一个 salary 参数，你可能会写：
+
+self.salary = kwargs['salary']
+
+致命风险：如果用户实例化时忘记传 salary（例如 emp = Employee(name="张三")），这行代码会直接抛出 KeyError 异常，导致程序崩溃。
+### 2. kwargs.get() 的优雅之处
+get() 是字典的内置方法，语法为：kwargs.get(键名, 默认值)。
+
+* 安全防崩：self.salary = kwargs.get('salary')。如果没传，不会报错，而是安全地返回 None。
+* 自带保底：self.role = kwargs.get('role', '实习生')。如果用户没传 role，代码自动将其设为 '实习生'。
+
+
+### 第三层：细说 super().__init__(**kwargs) —— 完美的“接力棒”
+在单继承或多重继承（Multiple Inheritance）中，子类通常是在父类的基础上“添砖加瓦”。
+### 1. 为什么一定要调用 super().__init__？
+如果子类重写了 __init__，父类的 __init__ 就默认不执行了。这意味着父类里定义的各种核心属性（比如数据库连接、用户基础信息）全部没有被初始化。必须用 super() 去触发父类的构造函数。
+### 2. 为什么要带上 **kwargs？
+子类并不知道（也不该关心）它的父类、祖先类甚至兄弟类到底需要多少参数。
+通过在 super().__init__(**kwargs) 中把字典继续传下去，就像是快递接力：子类看一眼箱子里有没有自己的快递，拿不拿无所谓，然后把整个箱子继续传给下一个继承者。
+
+### 第四层：两者的联动（经典工业级写法）
+在实际开发（如 Django, PyTorch, PySide 等框架）中，通常会有两种联动方式。
+### 模式 A：纯读取模式（使用 get）
+如果父类允许接收多余的参数，或者这些参数是多方共享的，子类只做读取：
+``` python
+class Parent:
+    def __init__(self, name, **kwargs):
+        self.name = name
+class Child(Parent):
+    def __init__(self, **kwargs):
+        # 1. 仅仅是安全读取，kwargs 字典内部没有发生变化
+        self.toy = kwargs.get('toy', '乐高') 
+        
+        # 2. 把完整的 kwargs 传给父类，父类会从中提取 'name'
+        super().__init__(**kwargs) 
+# 调用c = Child(name="小明", toy="遥控车")
+```
+### 模式 B：拦截过滤模式（使用 pop 替代 get）
+这是更常见的规范写法。如果子类提取了某个参数，且不希望父类看到它（因为父类如果不支持这个参数，会报 TypeError），就需要把参数从箱子里“拿走”。
+pop() 的效果和 get() 一样安全，但它会顺手把这个键从字典里删掉。
+``` python
+class Component:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+class Button(Component):
+    def __init__(self, **kwargs):
+        # 1. 安全提取并【卸载】属于子类的参数 text
+        self.text = kwargs.pop('text', '默认按钮')
+        
+        # 2. 此时 kwargs 字典里只剩下 {'width': 100, 'height': 50}
+        # 3. 传给父类，父类刚好完美接收，不会因为多出 'text' 而报错
+        super().__init__(**kwargs)
+# 调用btn = Button(width=100, height=50, text="提交")
+```
+
+### 总结口诀
+
+* kwargs.get() 是对内的：从参数包裹里安全掏出子类自己想要的工具，没掏到就用默认的，绝不吵闹（不报错）。
+* super().__init__(**kwargs) 是对外的：把剩下的参数包裹往上递，让父类完成它该做的家务活。
+
+为了帮你写出最完美的类结构，你可以告诉我：
+
+* 你目前在写的这个类，它的上级（父类）是谁？是自定义的还是第三方库（如 Django 的 View 或 PyTorch 的 Module）？
+* 这个类需要外部传入哪些新参数？
+
+
