@@ -921,4 +921,37 @@ class Button(Component):
 
 
 
+# Python dict.update() 行为解析
+## 1. 核心结论
+绝对不会。 Python 的 .update() 方法不会把原字典中没填写的或缺失的数据自动置为 None。它只根据你传入的键值对进行精确覆盖或新增。
+## 2. 行为特征
 
+* 键不存在于新数据中：原字典里对应的值保持不变，绝对不会变成 None。
+* 键存在且新值为 None：只有在显式传入 {"key": None} 时，原字典对应的值才会变成 None。
+
+## 3. 代码示例与验证
+
+# 1. 初始字典user = {"name": "张三", "age": 18, "city": "北京"}
+# 2. 更新字典：只填写了 age，完全没有提及 name 和 city
+`user.update({"age": 20})`
+# 3. 打印结果
+``` python
+print(user)# 输出: {'name': '张三', 'age': 20, 'city': '北京'}# 结论: name 和 city 完好损耗，没有被置为 None
+```
+
+## 4. 衍生场景解决方案## 场景 A：如果新数据里有 None，但不想覆盖原字典的有效值
+``` python
+old_data = {"name": "张三", "age": 18}new_data = {"name": "李四", "age": None}  # age 为 None
+# 过滤掉值为 None 的键再更新cleaned_data = {k: v for k, v in new_data.items() if v is not None}
+old_data.update(cleaned_data)
+
+print(old_data)  # 输出: {'name': '李四', 'age': 18} (age 没有被 None 覆盖)
+```
+## 场景 B：如果新数据缺失某些键，强行让原字典那些键变成 None
+``` python
+old_data = {"name": "张三", "age": 18, "city": "北京"}new_data = {"age": 20}  # 缺失 name 和 city
+# 以原字典的键为基准进行更新，缺失的填 Noneforced_data = {key: new_data.get(key, None) for key in old_data}
+old_data.update(forced_data)
+
+print(old_data)  # 输出: {'name': None, 'age': 20, 'city': None}
+```
