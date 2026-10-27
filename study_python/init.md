@@ -107,8 +107,7 @@ class MyClass:
 在 mypackage/__init__.py 中加载并重新导出：
 ``` python
 # 1. 导入包内的模块
-from .mymodule
-import MyClass
+from .mymodule import MyClass
 # 2. 实例化类并直接暴露其中的 def (简化调用)
 run_my_method = MyClass().my_method
 ```
